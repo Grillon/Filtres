@@ -1,18 +1,16 @@
 Les Filtres
 ===========
 
-
-PS : L idee a un peu evolee. Il y deux types de filtres, les filtres de modifications et les filtres de groupement.
-un filtres de modification permet de changer la chaine de caractere. Un filtre de groupement permet de capturer un ensemble de donnees.
-Le texte suivant a ete ecrit avant que je ne commence a coder, comme je n'ai pas revu le texte depuis il est possible qu'il soit faux d'ailleurs les expressions regulieres sont fausses :)
-
 Description des filtres :
 
 Un filtre est une maniere de traiter un ensemble de caracteres. Ces caracteres doivent provenir d une liste. Ce qui est pratique dans la mesure ou l entree standard et un fichier sont transforme en liste par le while en perl.
 
-J ai imagine 3 types de filtres :
+j'ai cree 2 types de filtres :
 
-* inclusions_exclusions
+* filtres de modifications tel que
+
+** inclusions/exclusions
+
   Il inclut les lignes contenant un element de la liste d inclusion puis en exclus les lignes contenant un terme de la liste d exclusion.
     -exemple : vgdisplay -v / incusion : VG Name,VG S / exclusion : VG Status
     l Inclusion prendra ceci :
@@ -22,6 +20,8 @@ J ai imagine 3 types de filtres :
     apres l exclusion il restera ceci :
     VG Name               vg00
     VG Size               450,77 GiB
+
+* filtres de groupement tel que
 
 * groupement
   Il groupe les elements entre deux marqueurs. Si le deuxieme marqueur n est pas indiqué alors le premier marqueur sera egalement consideré marqueur de fin.
@@ -44,7 +44,7 @@ J ai imagine 3 types de filtres :
    NB : la syntaxe de l expression reguliere est fausse mais c est pour donner une idee. Je ne suis pas d'humeur a chercher les details maintenant.
 
 one line to give the program's name and an idea of what it does.
-Copyright (C) yyyy  name of author
+Copyright (C) 2014-2015  Thierry VOGEL
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
