@@ -1,4 +1,4 @@
-package Filtre_Ligne;
+package FiltreLigne;
 
 sub new {
   my ($class,$titre,@regex) = @_;
@@ -44,6 +44,7 @@ sub ajout_ligne {
 }
 
 sub filtrer_chaine {
+  no strict;
   my ($self,@chaine) = @_;
   my $regex = $self->regex;
   my @titres = @{$self->{_titres}};
@@ -83,8 +84,25 @@ my $def = -1;
   }
   push @resultats,\%resultat if %resultat;
 
+  $self->{_element_capture} = scalar(@resultats);
+
   $self->{_capture} = \@resultats;
+  $self->ajout_index;
   @chaine;
+}
+
+sub ajout_index {
+  my ($self) = @_;
+  my $x = 0;
+  foreach my $groupe ($self->tous) {
+    $groupe->{index} = $x++;
+  }
+}
+
+sub filtrage_est_reussi {
+  my ($self) =@_;
+  return 1 if $self->{_element_capture};
+  return 0;
 }
 
 sub groupe {
@@ -99,6 +117,12 @@ sub suivant {
   my ($self) = @_;
   #print scalar @{$self->{_capture}};
   my $ligne = shift @{$self->{_capture}};
+}
+
+sub tous {
+  my ($self) = @_;
+  return @{$self->{_capture}};
+
 }
 
 1;

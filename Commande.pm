@@ -1,4 +1,5 @@
 package Commande;
+use strict;
 
 =pod
 
@@ -7,7 +8,6 @@ package Commande;
 =head2 NOM
 
 Commande - Ce module permet d'executer une commande et de filtrer la sortie.
-
 
 =head2 SYNOPSIS
 
@@ -44,7 +44,7 @@ Souvent on grep/awk ou cut le resultat des commandes. On a parfois besoin du cod
 =cut
 
 
-sub  new {
+sub new {
 
 =item new("la commande");
 
@@ -54,9 +54,10 @@ sub  new {
 
   my ($class,$commande) = @_;
 
-  $ref = {
+  my $ref = {
     _commande => $commande,
-
+    _stderr => 0,
+    _filtrage_est_reussi => 0,
   };
 
   bless $ref,$class;
@@ -71,6 +72,12 @@ sub commande {
 
 }
 
+sub stderr {
+  my ($self,$etat) = @_;
+  return $self->{_stderr} unless defined $etat;
+  return $self->{_stderr} = $etat;
+}
+
 sub execute {
 
 =item execute()
@@ -83,11 +90,17 @@ sub execute {
 
   my ($self,@arguments) = @_;
   my $cmd = $self->commande;
+  my $stderr = $self->stderr;
   my $arg_plat = join(" ",@arguments);
   my @tmpRes;
   my $lang = "LANG=C";
   my $err_code = 'echo $?';
-  $cmd = "export $lang;$cmd $arg_plat;$err_code";
+  my $cmd_arg_plat = "$cmd $arg_plat";
+  unless ($stderr) {
+    $cmd_arg_plat =~ s#\|# 2>/dev/null | #g;
+    $cmd_arg_plat =~ s#(.)$#$1 2>/dev/null#;
+  }
+  $cmd = "export $lang;$cmd_arg_plat;$err_code";
   my @retours = `$cmd`;
 
   map { chomp($_) } @retours;
@@ -120,6 +133,8 @@ sub rc {
 
   renvoie le code de sortie de la commande sans la reexecuter sauf si la commande n'a jamais ete lancee
 
+=back
+
 =cut
 
 
@@ -135,13 +150,20 @@ sub passer_filtre {
 
   my ($self,$filtre) = @_;
 
+  $self->{_filtrage_est_reussi} = 0;
   my @chaine = $self->sortie;
 
   @chaine = $filtre->filtrer_chaine(@chaine);
 
+  $self->{_filtrage_est_reussi} = $filtre->filtrage_est_reussi;
   $self->{_sortie} = \@chaine;
   $self;
 
+}
+
+sub filtrage_est_reussi {
+  my ($self) = @_;
+  return $self->{_filtrage_est_reussi};
 }
 
 

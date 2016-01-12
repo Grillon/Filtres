@@ -1,9 +1,13 @@
-package Filtre_Inc;
+package FiltreInc;
+use strict;
 
 sub new {
   my ( $class,@inclure ) = @_;
 
-  my $ref = {_inclure => \@inclure};
+  my $ref = {
+    _inclure => \@inclure,
+    _element_capture => 0,
+  };
 
   bless $ref,$class;
 
@@ -38,8 +42,15 @@ sub filtrer_chaine {
   my $incs = @inc ? join("|",@inc) : '.*';
   my @finalRes = grep { /$incs/ } @chaine;
 
+  $self->{_element_capture} = scalar(@finalRes);
 
   @finalRes;
+}
+
+sub filtrage_est_reussi {
+  my ($self) =@_;
+  return 1 if $self->{_element_capture};
+  return 0;
 }
 
 
