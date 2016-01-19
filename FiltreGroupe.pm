@@ -45,7 +45,6 @@ my $groupement_non_delim = sub {
 
   return sub {
     my ($nl,$action) = @_;
-
     if (defined $action) {
       my $choix = {
 	groupe => return @groupe,
@@ -59,8 +58,6 @@ my $groupement_non_delim = sub {
 	$nom = $1;
 	push @nom_groupe,$nom;
       }
-      
-
     }
 
     if ($zone =~ 'mil') {
@@ -68,7 +65,6 @@ my $groupement_non_delim = sub {
 	$zone = 'ex';
 	$nom = "";
 	#push @groupe,$ligne;
-
       }
       else {
 	@groupe[-1] .= " ".$nl;
@@ -87,7 +83,6 @@ my $groupement_non_delim = sub {
     #print "$x $zone : $nl\n";
     @groupe;
   }
-
 };
 
 my $groupement = sub {

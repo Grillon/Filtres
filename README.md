@@ -43,7 +43,7 @@ j'ai cree 2 types de filtres :
 
    NB : la syntaxe de l expression reguliere est fausse mais c est pour donner une idee. Je ne suis pas d'humeur a chercher les details maintenant.
 
-one line to give the program's name and an idea of what it does.
+Filtres - une bibliotheque de filtres a base d'expressions regulieres
 Copyright (C) 2014-2015  Thierry VOGEL
 
 This program is free software; you can redistribute it and/or

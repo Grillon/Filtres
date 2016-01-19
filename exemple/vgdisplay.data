@@ -1,0 +1,61 @@
+--- Volume group ---
+  VG Name               data
+  System ID
+  Format                lvm2
+  Metadata Areas        4
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                4
+  Act PV                4
+  VG Size               93.14 GB
+  PE Size               4.00 MB
+  Total PE              23844
+  Alloc PE / Size       0 / 0
+  Free  PE / Size       23844 / 93.14 GB
+  VG UUID               3Y1WVF-BLET-QkKs-Qnrs-SZxI-wrNO-dTqhFP
+  --- Logical volume ---
+  LV Name                /dev/fileserver/share
+  VG Name                fileserver
+  LV UUID                280Mup-H9aa-sn0S-AXH3-04cP-V6p9-lfoGgJ
+  LV Write Access        read/write
+  LV Status              available
+  # open                 0
+  LV Size                40.00 GB
+  Current LE             10240
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:0
+
+  --- Logical volume ---
+  LV Name                /dev/fileserver/backup
+  VG Name                fileserver
+  LV UUID                zZeuKg-Dazh-aZMC-Aa99-KUSt-J6ET-KRe0cD
+  LV Write Access        read/write
+  LV Status              available
+  # open                 0
+  LV Size                5.00 GB
+  Current LE             1280
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:1
+
+  --- Logical volume ---
+  LV Name                /dev/fileserver/media
+  VG Name                fileserver
+  LV UUID                usfvrv-BC92-3pFH-2NW0-2N3e-6ERQ-4Sj7YS
+  LV Write Access        read/write
+  LV Status              available
+  # open                 0
+  LV Size                1.00 GB
+  Current LE             256
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     0
+  Block device           253:2

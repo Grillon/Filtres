@@ -33,6 +33,7 @@ sub exclure {
 }
 
 sub filtrer_chaine {
+#fournir le nombre d'elements eliminés cad total - filtrés
 
   my ($self,@chaine) = @_;
 
@@ -41,7 +42,7 @@ sub filtrer_chaine {
   my $jEx = @ex ? join("|",@ex) : '^ $';
   my @finalRes = grep { !/$jEx/ } @chaine;
 
-  $self->{_element_capture} = scalar(@finalRes);
+  $self->{_element_capture} = scalar(@chaine) - scalar(@finalRes);
 
   @finalRes;
 

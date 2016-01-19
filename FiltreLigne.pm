@@ -51,8 +51,8 @@ sub filtrer_chaine {
   my @resultats;
   my %resultat;
 
-my $y = 0;
-my $def = -1;
+  my $y = 0;
+  my $def = -1;
   foreach my $ligne (@chaine) {
     my $x = 0;
     $ligne =~ s/^\s+$//;
@@ -115,7 +115,7 @@ sub groupe {
 
 sub suivant {
   my ($self) = @_;
-  #print scalar @{$self->{_capture}};
+#print scalar @{$self->{_capture}};
   my $ligne = shift @{$self->{_capture}};
 }
 

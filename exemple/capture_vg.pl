@@ -1,29 +1,30 @@
 #!/usr/bin/env perl
 
 use Commande;
-use Filtre_Inc;
-use Filtre_Ex;
-use Filtre_Ligne;
-use Filtre_Groupe;
+use FiltreInc;
+use FiltreEx;
+use FiltreLigne;
+use FiltreGroupe;
 
 my $commande = Commande->new("cat vgdisplay.data");
 my ($rc, @resultat) = $commande->execute();
 
-my $vgs = Filtre_Groupe->new('^\s*VG\s+Name\s+(\S+)$','\s*--- Volume group ---\s*','\s*--- Logical volume ---\s*');
-my $lvs = Filtre_Groupe->new('^\s*LV\s+Name\s+(\S+)$','\s*--- Logical volume ---\s*');
-my $pvs = Filtre_Groupe->new('^\s*PV\s+Name\s+(\S+)','\s*--- Physical volumes ---\s*');
-my $nom_vg = Filtre_Ligne->new("nom_vg",'VG Name','(\S+)');
-my $pv_info = Filtre_Ligne->new("pv_status,pv_uuid,total_pe,free_pe",'PV Status\s+(\S+)|PV UUID\s+(\S+)|Total PE / Free PE\s+(\S+)\s+/\s+(\S+)');
+my $vgs = FiltreGroupe->new('^\s*VG\s+Name\s+(\S+)$','\s*--- Volume group ---\s*','\s*--- Logical volume ---\s*');
+my $lvs = FiltreGroupe->new('^\s*LV\s+Name\s+(\S+)$','\s*--- Logical volume ---\s*');
+my $pvs = FiltreGroupe->new('^\s*PV\s+Name\s+(\S+)','\s*--- Physical volumes ---\s*');
+my $nom_vg = FiltreLigne->new("nom_vg",'VG Name','(\S+)');
+my $pv_info = FiltreLigne->new("pv_status,pv_uuid,total_pe,free_pe",'PV Status\s+(\S+)|PV UUID\s+(\S+)|Total PE / Free PE\s+(\S+)\s+/\s+(\S+)');
 $pv_info->ajout_ligne("pv_name",'PV Name\s+(\S+)');
 
 #filtrage VGS
 #$commande->passer_filtre($vgs);
+$vgs->filtrer_chaine(`cat vgdisplay.data`);
 #foreach my $vgn ($vgs->groupe) {
 #my @vg = $vgs->groupe($vgn);
 #$lvs->filtrer_chaine(@vg);
 #foreach my $lvn ($lvs->groupe) {
 #my @lv = $lvs->groupe($lvn);
-#
+
 #}
 #$pvs->filtrer_chaine(@vg);
 #$pv_info->filtrer_chaine(@vg);

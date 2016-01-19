@@ -24,7 +24,7 @@ sub inclure {
 =cut
 
   my ($self,@inclure) = @_;
-  $self->{_inclure} = \@inclure if @inclure;
+  push @{$self->{_inclure}},@inclure if @inclure;
   return @{$self->{_inclure}};
 
 
